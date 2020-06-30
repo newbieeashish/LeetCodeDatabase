@@ -1,0 +1,57 @@
+/* 595. Big Countries */
+
+select name,population,area from world where population > 25000000 or area > 3000000
+
+
+/* 627. Swap Salary */
+
+UPDATE salary
+SET sex= IF(sex='f','m','f')
+
+/* 620. Not Boring Movies */
+
+select id,movie,description,rating from cinema where mod(id,2)=1 and  description Not like 'boring' order by rating desc 
+
+
+/* 182. Duplicate Emails */ 
+
+select Email from Person group by Email having count(Email) >1 
+
+
+/* 175. Combine Two Tables */
+
+select FirstName, LastName, City, State from Person a left join Address b on a.PersonId = b.PersonID
+
+
+/* 181. Employees Earning More Than Their Managers */
+
+select b.Name as Employee from Employee a inner join Employee b on a.ID = b.ManagerId where a.Salary < b.Salary
+
+/* 183. Customers Who Never Order */
+
+select Name as "Customers" from Customers c where c.Id  not in (select CustomerId from Orders);
+
+
+/* 196. Delete Duplicate Emails */
+
+delete P1 from Person P1, Person P2 where P1.Email=P2.Email and P1.Id>P2.Id
+
+
+/* 197. Rising Temperature */
+
+SELECT higher.Id 
+FROM Weather higher, Weather lower
+WHERE higher.Temperature > lower.Temperature 
+AND to_days(higher.RecordDate)-to_days(lower.RecordDate)=1;
+
+
+/ * 596. Classes More Than 5 Students */
+
+select
+    b.class as class
+from
+    (select distinct student, class from courses) as b
+group by
+    b.class
+having
+    count(b.student) >= 5
